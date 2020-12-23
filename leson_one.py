@@ -1,41 +1,41 @@
 import pygame
-import random
 
 
-def draw(screen):
-    font = pygame.font.Font(None, 50)
-    text = font.render('Hello, Pygame', True, (255, 0, 0))
-    text_x = w // 2 - text.get_width() // 2
-    text_y = 0
-    text_w = text.get_width()
-    text_h = text.get_height()
-    screen.blit(text, (text_x, text_y))
-    pygame.draw.rect(screen, (0, 0, 255), (text_x - 15, text_y - 15, text_w + 30, text_h + 30), 1)
+class Board:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+        self.board = [[0] * width for _ in range(height)]
+        self.left = 10
+        self.top = 10
+        self.cell_size = 30
 
+    def set_view(self, left, top, cell_size):
+        self.left = left
+        self.top = top
+        self.cell_size = cell_size
 
-def draw_circle(screen):
-    color = pygame.Color(255, 0, 10)
-    pygame.draw.circle(screen, color, (640 // 2 - 25, 480 // 2 - 25), 100, 0)
-    hsv = color.hsva
-    color.hsva = (hsv[0], hsv[1], hsv[2] - 30, hsv[3])
-    pygame.draw.circle(screen, color, (640 // 2 + 15, 480 // 2 + 15), 100, 0)
-
-
-def draw_points(screen):
-    for i in range(random.randint(1000, 10000)):
-        screen.fill(pygame.Color('black'), (random.random() * w, random.random() * h, 1, 1))
+    def render(self, screen):
+        cell_size_y = self.cell_size
+        for i in range(self.height):
+            cell_size_x = self.cell_size
+            cell_size_y += self.cell_size
+            for j in range(self.width):
+                pygame.draw.rect(screen, (255, 255, 255),
+                                 (cell_size_x, cell_size_y, self.cell_size, self.cell_size), 1)
+                cell_size_x += self.cell_size
 
 
 if __name__ == '__main__':
     pygame.init()
-    size = w, h = 640, 480
+    size = width, height = 800, 600
     screen = pygame.display.set_mode(size)
-    screen.fill((255, 255, 255))
-
-    # draw(screen)
-    # draw_circle(screen)
-    draw_points(screen)
-    while pygame.event.wait().type != pygame.QUIT:
+    board = Board(5, 7)
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill((0, 0, 0))
+        board.render(screen)
         pygame.display.flip()
-
-    pygame.quit()

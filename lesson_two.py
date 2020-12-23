@@ -17,7 +17,7 @@ if __name__ == '__main__':
         draw(screen)
         while pygame.event.wait().type != pygame.QUIT:
             pygame.display.flip()
-    except:
+    except AssertionError:
         print('неверный формат ввода')
         pygame.quit()
 

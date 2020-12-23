@@ -23,7 +23,7 @@ class Table:
         colors = [pygame.Color('black'), pygame.Color('white')]
         for i in range(self.h):
             for j in range(self.w):
-                pygame.draw.rect(screen, colors[self.table[j][i]], (
+                pygame.draw.rect(screen, colors[self.table[i][j]], (
                     self.left + i * self.cell_size, self.top + j * self.cell_size, self.cell_size, self.cell_size))
                 pygame.draw.rect(screen, colors[1], (
                     self.left + i * self.cell_size, self.top + j * self.cell_size, self.cell_size, self.cell_size), 1)
