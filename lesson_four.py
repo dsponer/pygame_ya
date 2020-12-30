@@ -3,6 +3,7 @@ import sys
 import pygame
 import random
 
+
 def load_image(name, image_size, colorkey=None):
     path = os.path.join('data', name)
     if not os.path.isfile(path):
@@ -48,7 +49,7 @@ if __name__ == '__main__':
     # image = load_image('/Users/dsponer/PycharmProjects/pygame_ya/neon-genesis-evangelion-1.jpg', (400, 400))
     group_sprites = pygame.sprite.Group()
 
-    for _ in range(100):
+    for _ in range(50):
         DeadPool(group_sprites)
 
     screen = pygame.display.set_mode(size)
